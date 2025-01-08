@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html data-mode="light">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Organiser dashboard</title>
+
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/styles.css">
+	<link rel="stylesheet" href="css/common.css">
+	<link rel="stylesheet" href="css/w3.css">
+	<link rel="stylesheet" href="css/dash.css">
+	<link rel="stylesheet" href="css/anim.css">
+	<link rel="stylesheet" href="css/autoforms.css">
+	<link rel="stylesheet" href="css/customalerter.css">
+
+	<script src="js/SuperScript.js"></script>
+	<script src="js/sessionstuff.js"></script>
+</head>
+<body>
+	<nav>
+		<div class="navitem modetxt logoguy">
+			<span class="w3-btn w3-black w3-circle icon"><i class="fa fa-user"></i></span> 
+			<span class="uname">user [7vy]</span>
+		</div>
+		<div class="navitem">
+			<div class="w3-dropdown-hover w3-transparent">
+				<div class="sidestuff w3-center">
+					<b>Current project: </b>
+					<b class="projectname themetxt"></b>   
+					<b class="w3-tag project_progress">50%</b>
+				</div>
+				<div class="w3-dropdown-content slidein stuff">
+					<h4 class="projectname">project progress</h4>
+					<span class="w3-tag w3-black project_progress" data-toshow='items'></span>
+					<span class="w3-tag w3-black project_progress w3-right" data-toshow=''></span>
+					<div class="progress projectbar" data-val="25"><div class="bar w3-blue" style="width: 50%"></div></div>
+					<hr>
+					<b class="themetxt">summary</b>
+					<p class="projectsummary"></p>
+					<hr>
+					<b class="themetxt">description</b>
+					<p class="projectdesc"></p>
+				</div>
+			</div>
+		</div>
+		<div class="navitem">
+			<button class="w3-btn w3-transparent" onclick="toggleShow('#mySidebar')"><i class="fa fa-bars"></i></button>
+		</div>
+	</nav>
+
+	<div id="mySidebar" data-shown="0" style="display:none;">
+		<div class="w3-sidebar w3-bar-block w3-card w3-animate-left modebg1" style="max-width:500px;width: 100%;height: 100%;">
+			<button class="w3-btn w3-hover-red w3-right" onclick="toggleShow('#mySidebar')"><i class="fa fa-close"></i></button>
+
+			<li class="w3-bar-item themetxt"><b>main options</b></li>
+			<a href="/" class="w3-bar-item w3-button" onclick="deleteCookie('curproject')"><i class="fa fa-exchange"></i> switch projects</a>
+			<hr>
+			<!-- testing working with temporary files in the browser (unnecessary) -->
+			<div class="w3-hide">
+				<li class="w3-bar-item themetxt"><b>import options</b></li>
+				<a href="#" class="w3-bar-item w3-button" onclick="handlemenu('i_file')"><i class="fa fa-download"></i> import from file</a>
+				<hr>
+				<li class="w3-bar-item themetxt"><b>export options</b></li>
+				<a href="#" class="w3-bar-item w3-button" onclick="handlemenu('e_file')"><i class="fa fa-file-code-o"></i> export to file</a>
+				<hr>
+			</div>
+			<li class="w3-bar-item themetxt"><b>irreversible actions</b></li>
+			<!-- <a href="#" class="w3-bar-item w3-button w3-hover-red" onclick="clearEverything()"><i class="fa fa-trash"></i> delete all local data</a> -->
+			<a href="#" class="w3-bar-item w3-button themehover" onclick="savedata(),handlemenu('xx')"><i class="fa fa-save"></i> save to database</a>
+			<hr>
+			<li class="w3-bar-item themetxt"><b>session actions</b></li>
+			<a href="#" class="w3-bar-item w3-button themehover" onclick="logmeout()"><i class="fa fa-times"></i> logout</a>
+		</div>
+	</div>
+
+	<div class="content">
+		<div class="default">
+			<i>Error loading planboard</i>
+		</div>
+	</div>
+
+	<div class="popups mymodal" data-shown="0">
+		<!-- adders -->
+
+		<div class="adder addnote modebg w3-animate-zoom">
+			<button class="w3-btn w3-right" onclick="toggleShowB('.popups','flex','none');"><i class="fa fa-close"></i></button>
+			<br>
+			<div class="s-autoform-iv w3-text-white">
+				<span class="matitle">Add note</span>
+				<input type="text" id="mtitle" placeholder="enter title here">
+				<textarea id="mtext" placeholder="enter text here..." rows="3"></textarea>
+				<button class="btn" onclick="addNote()">
+					<i class="fa fa-plus"></i> add note
+				</button>
+			</div>
+		</div>
+
+		<div class="adder addlist modebg w3-animate-zoom">
+			<button class="w3-btn w3-right" onclick="toggleShowB('.popups','flex','none');"><i class="fa fa-close"></i></button>
+			<br>
+			<div class="s-autoform-iv w3-text-white">
+				<span class="matitle">Add list</span>
+				<input type="text" id="mtitle" placeholder="enter list title here">
+				<button class="btn" onclick="addList()">
+					<i class="fa fa-plus"></i> add new list
+				</button>
+			</div>
+		</div>
+
+		<div class="adder addplist modebg w3-animate-zoom">
+			<button class="w3-btn w3-right" onclick="toggleShowB('.popups','flex','none');"><i class="fa fa-close"></i></button>
+			<br>
+			<div class="s-autoform-iv w3-text-white">
+				<span class="matitle">Add list</span>
+				<input type="text" id="mtitle" placeholder="enter list title here">
+				<button class="btn" onclick="addPList()">
+					<i class="fa fa-plus"></i> new process list
+				</button>
+			</div>
+		</div>
+
+		<div class="adder import modebg w3-animate-zoom">
+			<button class="w3-btn w3-right" onclick="toggleShowB('.popups','flex','none');"><i class="fa fa-close"></i></button>
+			<br>
+			<p>this was meant for importing JSON files</p>
+		</div>
+
+		<div class="adder addnote modebg w3-animate-zoom">
+			<button class="w3-btn w3-right" onclick="toggleShowB('.popups','flex','none');"><i class="fa fa-close"></i></button>
+			<br>
+			<div class="s-autoform-iv w3-text-white">
+				<span class="matitle">Add countdown</span>
+				<input type="text" id="mtitle" placeholder="enter title here">
+				<input type="date" id="mdate" etitle="enter the ending here">
+				<button class="btn" onclick="addNote()">
+					<i class="fa fa-plus"></i> add note
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<footer>
+		<div class="sect">
+			<button class="btn" onclick="addme(1)">
+				<i class="fa fa-sticky-note"></i> add Note
+			</button>
+
+			<button class="btn" onclick="addme(2)">
+				<i class="fa fa-list"></i> add list
+			</button>
+
+			<button class="btn" onclick="addme(3)">
+				<i class="fa fa-clipboard"></i> add process list
+			</button>
+		</div>
+
+		<div class="w3-hide-small w3-hide-medium">
+			<div class="timebox"></div>
+		</div>
+
+		<div class="sect">
+			<button class="btn" data-switchmode onclick="switchmode()">
+				<i class="fa fa-moon-o"></i> switch mode
+			</button>
+			<button class="btn" onclick="savedata()">
+				<i class="fa fa-save"></i> save
+			</button>
+		</div>
+	</footer>
+
+	<div class="helpers">
+		<div class="widthcheck"></div>
+	</div>
+	
+	<script src="/js/mekui.js"></script>
+	<script src="/js/app.js"></script>
+	<script src="/js/customalerter.js"></script>
+	<script src="/js/autodarkmode.js"></script>
+
+	<script>
+		window.addEventListener('load',() => {
+			setupEverything();
+		})
+	</script>
+</body>
+</html>

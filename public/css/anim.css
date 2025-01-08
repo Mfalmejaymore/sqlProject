@@ -1,0 +1,12 @@
+@keyframes slidein{
+	from{
+		translate: 0 50px;opacity: 0;
+	}
+	to{
+		translate: 0 0px;opacity: 1;
+	}
+}
+
+.slidein{
+	animation: 0.4s slidein ease;
+}

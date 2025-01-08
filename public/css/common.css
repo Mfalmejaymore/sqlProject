@@ -1,0 +1,115 @@
+/* holds reusable classes and most css variables */
+:root {
+    --themecolor: #007bff;
+    --altbg: #00e0fe77;
+    --bodybg: var(--secbg);
+
+	--roundness: 12px;
+}
+html[data-mode=dark]{
+    --containerbg: #222;
+    --modebg: #111;
+    --altbg: #ddd;
+    --secbg: #333;
+    --textcolor: #fff;
+}
+html[data-mode=light]{
+    --containerbg: #ddd;
+    --altbg: #222;
+    --modebg: #fff;
+    --secbg: #f7f7f7;
+    --textcolor: #333;
+}
+
+*{
+    box-sizing: border-box;
+    transition: 0.4s ease-out;
+}
+
+
+/* common styles */
+
+.primarybg{
+    background-color: var(--primaryColor);
+    color: var(--textColor);
+}
+button .icon1,a .icon1{
+    opacity: 0;
+    translate: -12px 0px;
+}
+button:hover .icon1,a:hover .icon1{
+    opacity: 1;
+    translate: 0px 0;
+}
+
+.showup{
+    position: relative;
+    animation: opac 1.3s ease-out,animatebottom 0.9s ease-out;
+}
+
+.heightguy{
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+}
+
+.mymodal{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 7;
+    background-color: rgba(0, 0, 0, .7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: none;
+}
+
+.progress{
+    width: 100%;
+    margin: 12px 0;
+    background-color: var(--containerbg);
+}
+.progress .bar{
+    height: 5px;
+    background-color: var(--altbg);
+}
+.projectbar{
+    background-color: #333;
+}
+
+.themetxt{
+    color: var(--themecolor);
+}
+.themehover:hover{
+    background-color: var(--themecolor);
+}
+.modetxt{
+    color: var(--textcolor);
+}
+.modebg{
+    background-color: var(--containerbg) !important;
+}
+.modebg1{
+    background-color: var(--modebg) !important;
+}
+
+.helpers{
+    position: fixed;
+    z-index: -1;
+    height: 100vh;
+    width: 100%;
+    top: 0;
+    pointer-events: none;
+    opacity: 0;
+}
+.widthcheck{
+    aspect-ratio: 16 / 9;
+    min-width: 350px;
+    width: 30vw;
+    background-color: red;
+}

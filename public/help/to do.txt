@@ -1,0 +1,15 @@
+make a way to add countdowns
+	like they have a title, and end date and timer (dd:hr:min:sec.ms)
+
+make the database as
+	users
+		userid
+		username
+		password
+
+	projects
+		userid
+		projectname
+		projectdata
+		datecreated
+

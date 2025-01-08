@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="light">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Organiser - Your Projects</title>
+	<!-- W3.CSS Stylesheet -->
+	<link rel="stylesheet" href="css/w3.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/common.css">
+	<link rel="stylesheet" href="css/dash.css">
+	<link rel="stylesheet" href="css/styles.css">
+	<link rel="stylesheet" href="css/autoforms.css">
+
+	<script src="js/SuperScript.js"></script>
+	<script src="js/sessionstuff.js"></script>
+
+	<style>
+		a{
+			text-decoration: none;
+		}
+		.content {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			padding: 20px 12px;
+			min-height: 100vh;
+		}
+		.content .thelist{
+			width: 80%;
+			max-width: 400px;
+		}
+		.showuser{
+			color: var(--textcolor);
+			font-weight: 700;
+		}
+		.project-list {
+			margin-top: 20px;
+		}
+		
+		.project-item {
+			background-color: #f4f4f9;
+			padding: 20px;
+			margin-bottom: 15px;
+			cursor: pointer;
+			border-radius: var(--roundness);
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+		}
+		.project-item:hover{
+			scale: 1.02;
+			background-color: #fff;
+			box-shadow: 0 0 20px var(--themecolor);
+		}
+		.project-item .p_name{
+			display: block;
+			font-size: 18px;
+		}
+
+		.add-project-button {
+			width: 100%;
+			margin-top: 30px;
+			border-radius: var(--roundness);
+			background-color: var(--themecolor);
+			color: white;
+			font-size: 16px;
+		}
+		.add-project-button:hover {
+			scale:1.07;
+		}
+
+		.view-project{
+			padding: 0;
+			width: 90%;
+			max-width: 400px;
+		}
+		.view-project .pname{
+			padding: 12px;
+			text-align: center;
+			font-size: 31px;
+			font-weight: 700;
+		}
+		.view-project .pdesc {
+			padding: 12px 20px;
+			border-top: 1px solid var(--altbg);
+		}
+		.view-project .options{
+			text-align: center;
+			padding: 12px;
+		}
+
+		.bigname{
+			font-size: 20px;
+		}
+	</style>
+</head>
+<body>
+	<nav>
+		<div class="navitem modetxt logoguy">
+			<span class="w3-btn w3-black w3-circle icon"><i class="fa fa-user"></i></span> 
+			<span class="showuser">user [7vy]</span>
+		</div>
+
+		<div class="navitem">
+			<b class="bigname">Project <span class="themetxt">Organiser</span></b>
+		</div>
+		<div class="navitem">
+			<button class="btn w3-right" onclick="logmeout()"><i class="fa fa-times"></i> logout</button>
+		</div>
+	</nav>
+
+	<div class="content">
+		<div class="thelist w3-container w3-center w3-card-4 w3-padding-32 w3-round-large modebg">
+			<h1 class="showuser">Current User</h1>
+			<p class="projects-report">Showing all <b>3</b> projects</p>
+
+			<!-- Project List -->
+			<div class="w3-bar-block project-list">
+				<div class="w3-hide">
+					<div class="w3-bar-item project-item">
+						<b class="p_name">Project 1</b>
+						<span class="p_desc">Details about the first project...</span>
+					</div>
+					<div class="w3-bar-item project-item">
+						<b class="p_name">Project 2</b>
+						<span class="p_desc">Details about the second project...</span>
+					</div>
+					<div class="w3-bar-item project-item">
+						<b class="p_name">Project 3</b>
+						<span class="p_desc">Details about the third project...</span>
+					</div>
+				</div>
+			</div>
+
+			<!-- Add New Project Button -->
+			<a href="#" class="w3-btn w3-block add-project-button" onclick="addproject()"><i class="fa fa-plus"></i> Add New Project</a>
+		</div>
+	</div>
+
+	<div class="popups mymodal" data-shown="0">
+		<div class="adder addproject modebg w3-animate-zoom">
+			<button class="w3-btn w3-right" onclick="toggleShowB('.popups','flex','none');"><i class="fa fa-close"></i></button>
+			<br>
+			<form class="s-autoform-iv w3-text-white" action="/addproject" method="post" enctype="application/x-www-form-urlencoded">
+				<span class="matitle">Add project</span>
+				<input type="text" name="p_name" placeholder="enter title here" required>
+				<textarea name="p_desc" placeholder="enter description here..." rows="3" required></textarea>
+				<input type="hidden" name="userid" class="idinput" value="">
+				<button class="btn" type="submit">
+					<i class="fa fa-plus"></i> add project
+				</button>
+			</form>
+		</div>
+		
+		<div class="adder view-project modebg w3-animate-zoom">
+			<button class="w3-btn w3-right" onclick="toggleShowB('.popups','flex','none');"><i class="fa fa-close"></i></button>
+			<h2 class="pname">Project name</h2>
+			<div class="pinfo w3-center">
+				<b class="w3-tag w3-left">added on <b class="themetxt cre8date">03:12:24</b></b>
+				<b class="w3-tag"><b class="themetxt status">private</b></b>
+				<b class="w3-tag w3-right">update on <b class="themetxt updatedate">03:12:24</b></b>
+			</div>
+			<p class="pdesc">project description</p>
+			<div class="options">
+				<a href="#" id="project_id_open" class="btn" data-dest="/dash"><i class="fa fa-check"></i> open planboard</a>
+				<a href="#" id="project_id_del" class="btn" data-dest="/deleteproject"><i class="fa fa-trash"></i> delete</a>
+			</div>
+		</div>
+	</div>
+
+	<!-- make a way to make a new project -->
+	<!-- make a popup for this -->
+	<!-- code the backend for it -->
+
+	<footer class="w3-transparent">
+		<div class="sect">
+			<button class="btn" data-switchmode onclick="switchmode()">
+				<i class="fa fa-moon-o"></i> switch mode
+			</button>
+		</div>
+	</footer>
+
+	<script>
+		var udata = {};
+		var datavalid = false;
+		// UI items
+		let plist = document.querySelector('.project-list');
+		let psumm = document.querySelector('.projects-report');
+		let udis = document.querySelectorAll('.showuser');
+		let popups = document.querySelectorAll('.adder');
+		let idinputs = document.querySelectorAll('.idinput');
+
+		// data
+		let projects = [{
+			'projectname' : 'my test project',
+			'projectdesc' : 'this is a simple project to test how Organiser works',
+			'projectdata' : '[]',
+			'dateupdated' : '23-01-25',
+			'datecreated' : '01-01-25'
+		},{
+			'projectname' : 'my new project',
+			'projectdesc' : 'this tests adding new stuff',
+			'projectdata' : '[]',
+			'dateupdated' : '23-01-24',
+			'datecreated' : '01-01-24'
+		}];
+
+		function showProjects() {
+			plist.innerHTML = '';
+
+			if(projects.length == 0){
+				plist.innerHTML = `<p>you have no projects yet</p>`;
+				psumm.innerHTML = '';
+			} else {
+				psumm.innerHTML = `<p>you have <b class="themetxt">${projects.length}</b> ${plural('project',projects.length)}</p>`;
+
+				projects.forEach((el,id) => {
+					let b = document.createElement('div');
+
+					b.className = 'w3-bar-item project-item modebg1';
+					b.innerHTML = `
+						<b class="p_name">${el.projectname}</b>
+						<span class="p_desc">${el.projectdesc.substr(0,30)}...</span>
+					`;
+					b.addEventListener('click',() => {
+						viewproject(id);
+					})
+
+					plist.appendChild(b);
+				});
+			}
+		}
+
+		async function init() {
+			if(getCookie('curuserid')){
+				udata = await getUserData();
+				datavalid = isvalid(udata);
+
+				udis.forEach(el => {
+					el.innerHTML = `${udata.username}`;
+				});
+				idinputs.forEach(el => {el.value = getCookie('curuserid');})
+
+				let temp_projects = await getMyProjects();
+				projects = isvalid(temp_projects) ? temp_projects : [];
+				showProjects();
+			} else {
+				alert('log in to begin a new session');
+				window.location.assign("/login");
+			}
+		}
+
+		// utility
+		isvalid = (e) => {
+			return JSON.stringify(e).includes('{');
+		}
+
+		init();
+
+		// runtime ops
+		function addproject(){
+			togglePopups();
+
+			popups[0].style.display = 'block';
+		}
+
+		function viewproject(m){
+			togglePopups();
+
+			let mypopup = popups[1];
+			mypopup.style.display = 'block';
+
+			let theproject = projects[m];
+			console.log(theproject);
+
+			/*
+				{
+					"id":1,
+					"userid":1,
+					"projectname":"made from db",
+					"projectdesc":"this is a project made from tha backend of this app to see if it will even pick it up",
+					"projectdata":"[]",
+					"dateupdated":"2025-01-10T17:30:33.000Z",
+					"datecreated":"2025-01-10T17:30:33.000Z",
+					"projectstatus":"private"
+				}
+			*/
+
+			let projectname = mypopup.querySelector('.pname');
+			let projectdesc = mypopup.querySelector('.pdesc');
+			let dateupdated = mypopup.querySelector('.updatedate');
+			let datecreated = mypopup.querySelector('.cre8date');
+			let projectstatus = mypopup.querySelector('.status');
+			let delbtn = mypopup.querySelector('#project_id_del');
+			let openbtn = mypopup.querySelector('#project_id_open');
+
+			let u_date = new Date(theproject.dateupdated);
+			let cr8_date = new Date(theproject.datecreated);
+
+			projectname.innerHTML = `${theproject.projectname}`;
+			projectdesc.innerHTML = `${theproject.projectdesc}`;
+			dateupdated.innerHTML = `${u_date.toLocaleDateString()}`;
+			datecreated.innerHTML = `${cr8_date.toLocaleDateString()}`;
+			projectstatus.innerHTML = `${theproject.projectstatus}`;
+
+			delbtn.onclick = () => {
+				setCookie('pid',theproject.id,0.01); //set for 14min
+
+				window.location.assign(delbtn.dataset.dest);
+			}
+
+			openbtn.onclick = () => {
+				setCookie('pid',theproject.id,0.01); //set for 14min
+
+				window.location.assign(openbtn.dataset.dest);
+			}
+		}
+
+		function togglePopups(){
+			toggleShowB('.popups','flex','none');
+
+			popups.forEach(el => {
+				el.style.display = 'none';
+			});
+		}
+	</script>
+
+	<script src="js/autodarkmode.js"></script>
+</body>
+</html>
