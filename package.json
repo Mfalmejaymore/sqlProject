@@ -1,0 +1,20 @@
+{
+  "name": "taskorganiser",
+  "version": "1.0.0",
+  "description": "this is a project that uses sql and nodejs to manage tasks and projects",
+  "main": "maincode.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "tasks",
+    "organiser",
+    "project"
+  ],
+  "author": "JamesMuthoka",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2",
+    "npm": "^11.0.0"
+  }
+}
