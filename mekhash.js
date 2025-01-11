@@ -9,12 +9,11 @@ output['customhash'] = (pw) => {
     // no idea what this does all i know is that it works 
     for (let i = 0; i < pw.length; i++) {
         let char = pw.charCodeAt(i);
-        hash = (hash << 5) - hash + char;
-        hash = hash & hash; // Convert to 32-bit integer
+        hash = (hash << 5) - hash + char; // do more research on this operator <<
+        hash = hash & hash; // Convert to 32-bit integer i guess
     }
 
     let thehash = hash.toString(16);
-    // log(`turned [${pw}] to [${thehash}]`);
     return thehash;
 }
 

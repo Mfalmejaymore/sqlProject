@@ -15,7 +15,7 @@ connection.connect(err => {
     itworked = err == true;
 
     if (err) throw err;
-    console.log('Connected to organiser database.');
+    console.log('Connection to organiser database worked.');
 });
 
 connection['itworked'] = itworked;

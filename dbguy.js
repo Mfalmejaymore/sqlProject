@@ -1,7 +1,7 @@
 // dbconnect.js
 const mysql = require('mysql2/promise'); // Use promise-based MySQL2
 
-// Create a connection pool
+// Create a connection pool, did this to fix some errors that came with database connections
 const thesql = mysql.createPool({
     host: 'localhost',     // Replace with your database host
     user: 'root',     // Replace with your database user
