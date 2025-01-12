@@ -39,8 +39,9 @@ It's a planning tool that enables you to list activities to be done and monitor 
 5. Run this command:  
    ```bash
    node app.js
-   ```  
-6. It should run perfectly.  
+   ```
+6. Open `localhost:4700` on your browser
+7. It should run perfectly.  
 
 ## How to Use  
 **MANUAL**  
